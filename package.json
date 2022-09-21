@@ -11,8 +11,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "hacker-rank:start": "ng serve --host 0.0.0.0 --port 8000 --disable-host-check",
-    "hacker-rank:test": "./hackerrank.sh",
     "lint": "ng lint"
   },
   "dependencies": {
