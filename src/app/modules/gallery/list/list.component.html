@@ -1,17 +1,10 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
-    <mat-drawer-container
-        class="flex-auto h-full bg-card dark:bg-transparent"
-        (backdropClick)="onBackdropClicked()">
+    <mat-drawer-container class="flex-auto h-full bg-card dark:bg-transparent" (backdropClick)="onBackdropClicked()">
 
         <!-- Drawer -->
-        <mat-drawer
-            class="w-full md:w-160 dark:bg-gray-900"
-            [mode]="drawerMode"
-            [opened]="false"
-            [position]="'end'"
-            [disableClose]="true"
-            #matDrawer>
+        <mat-drawer class="w-full md:w-160 dark:bg-gray-900" [mode]="drawerMode" [opened]="false" [position]="'end'"
+            [disableClose]="true" #matDrawer>
             <router-outlet></router-outlet>
         </mat-drawer>
 
@@ -31,10 +24,10 @@
                                 {{artistsCount}}
                             </ng-container>
                             {{artistsCount | i18nPlural: {
-                            '=0'   : 'No results',
-                            '=1'   : 'result',
+                            '=0' : 'No results',
+                            '=1' : 'result',
                             'other': 'results'
-                        } }}
+                            } }}
                         </div>
                     </div>
 
@@ -42,15 +35,10 @@
                     <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
                         <!-- Search -->
                         <div class="flex-auto">
-                            <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
-                                <mat-icon
-                                    class="icon-size-5"
-                                    matPrefix
-                                    [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                                <input
-                                    matInput
-                                    [formControl]="searchInputControl"
-                                    [autocomplete]="'off'"
+                            <mat-form-field
+                                class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                <input matInput [formControl]="searchInputControl" [autocomplete]="'off'"
                                     [placeholder]="'Search contacts'">
                             </mat-form-field>
                         </div>
@@ -61,10 +49,42 @@
                 <div class="relative">
                     <ng-container *ngIf="artists$ | async as artists">
                         <ng-container *ngIf="artists.length; else noArtists">
-                            <ng-container *ngFor="let artist of artists; let i = index; trackBy: trackByFn">
-                                
-                                <!-- Contact -->
-                                <a
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6  w-full max-w-400">
+                                <ng-container *ngFor="let artist of artists; let i = index; trackBy: trackByFn">
+
+                                    <fuse-card class="flex flex-col items-center max-w-80 max-height-200 w-full p-8 pb-6 filter-info m-2">
+                                        <img class="w-32 h-32 rounded-full" [src]="artist.picture_medium"
+                                            alt="Card cover image">
+                                        <div class="text-2xl font-semibold leading-tight text-center mt-8 truncate">
+                                            {{artist.name}}</div>
+                                        <div class="text-secondary leading-tight text-center mt-1">{{artist.type}}</div>
+                                        <hr class="w-full border-t mt-8 mb-0">
+                                        <div class="w-full flex items-center justify-between my-4 px-2">
+                                            <div class="flex flex-col items-center">
+                                                <span class="font-bold">{{artist.nb_fan | number}}</span>
+                                                <span class="text-sm font-medium text-secondary">Fans</span>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <span class="font-bold">{{artist.nb_album | number}}</span>
+                                                <span class="text-sm font-medium text-secondary">Albums</span>
+                                            </div>
+                                            <div class="flex flex-col items-center">
+                                                <span class="font-bold">1.2k</span>
+                                                <span class="text-sm font-medium text-secondary">FOLLOWING</span>
+                                            </div>
+                                        </div>
+                                        <hr class="w-full border-t mt-0 mb-8">
+                                        <!--<div class="text-center text-secondary">I’m a friendly kitchen assistant who suffers from a severe phobia of buttons</div>-->
+                                        <a class="px-6 m-2 mt-8 truncate " mat-flat-button [color]="'primary'" [routerLink]="['./', artist.id]">
+                                            More about {{artist.name}}
+                                        </a>
+                                    </fuse-card>
+
+
+
+
+                                    <!-- Contact -->
+                                    <!--<a
                                     class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b"
                                     [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedartist || selectedartist.id !== artist.id,
                                                 'bg-primary-50 dark:bg-hover': selectedartist && selectedartist.id === artist.id}"
@@ -94,14 +114,16 @@
                                         <div class="font-medium leading-5 truncate">Total Number of Albums</div>
                                         <div class="leading-5 truncate text-secondary">{{artist.nb_album | number}}</div>
                                     </div>
-                                </a>
-                            </ng-container>
+                                </a>-->
+                                </ng-container>
+                            </div>
                         </ng-container>
                     </ng-container>
 
                     <!-- No contacts -->
                     <ng-template #noArtists>
-                        <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">Search Exixting Artist!</div>
+                        <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">Search
+                            Exixting Artist!</div>
                     </ng-template>
 
                 </div>

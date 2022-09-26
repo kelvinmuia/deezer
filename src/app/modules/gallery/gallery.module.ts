@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FuseCardModule } from '@fuse/components/card';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule,
     MatTooltipModule,
+    FuseCardModule,
     SharedModule
   ]
 })
